@@ -1,0 +1,12 @@
+{
+  "name": "avatarGame",
+  "displayName": "avatarGame",
+  "expo": {
+    "name": "avatarGame",
+    "slug": "avatarGame",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
