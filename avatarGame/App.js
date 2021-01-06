@@ -1,8 +1,8 @@
 //import system
 import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { TextInput, Image, StyleSheet, Text, TouchableOpacity, View, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import AppLoading from 'expo-app-loading';
@@ -10,7 +10,9 @@ import AppLoading from 'expo-app-loading';
 const Stack = createStackNavigator();
 //import assets
 import logo from './assets/imgs/logo.gif'; 
-
+import googlelogin from './assets/imgs/google-icon.png';
+import facebooklogin from './assets/imgs/facebook-icon.png';
+import discordlogin from './assets/imgs/discord-icon.webp'; 
 //Font thing
 import { useFonts } from 'expo-font';
 
@@ -77,22 +79,66 @@ function HomeScreen({ navigation }) {
 //Profile Screen
 function ProfileScreen() {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View>
       <Text>Profile Screen</Text>
     </View>
   );
 }
 
-function LoginScreen() {
+function LoginScreen({ navigation }) {
+
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Login Screen</Text>
+    <View style={styles.loginBox}>
+      <Text style={styles.loginTitle}>Login</Text>
+      <TextInput
+        style={styles.inputBox}
+        placeholder="Username"
+        textContentType='username'
+      />
+      <TextInput
+        style={styles.inputBox}
+        placeholder="Password"
+        textContentType='password'
+        secureTextEntry={true}
+      />
+      
+      <View style={styles.loginButtons}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('ProfileScreen')}
+          style={styles.buttonLogin}>
+          <Text style={styles.loginButtonText}>Login</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/*
+        Making the alternative login methods
+        -Future devs Make it so that it actually logs in with those social networks thx
+      */}
+      <View style={styles.loginAlts}> 
+        <TouchableOpacity 
+          onPress={() => navigation.navigate('ProfileScreen')}
+          style={styles.buttonAlts}>
+          <Image source={googlelogin} style={styles.loginIcons} />
+        </TouchableOpacity>
+        
+        <TouchableOpacity 
+          onPress={() => navigation.navigate('ProfileScreen')}
+          style={styles.buttonAlts}>
+          <Image source={facebooklogin} style={styles.loginIcons} />
+        </TouchableOpacity>
+
+        <TouchableOpacity 
+          onPress={() => navigation.navigate('ProfileScreen')}
+          style={styles.buttonAlts}>
+          <Image source={discordlogin} style={styles.loginIcons} />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
 function RegisterScreen() {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View>
       <Text>Register Screen</Text>
     </View>
   );
@@ -210,7 +256,15 @@ const styles = StyleSheet.create({
     backgroundColor: "grey"
   },
 
-
+  inputBox: {
+    height: 40,
+    width: 270,
+    backgroundColor: '#FFF',
+    textAlign: 'center',
+    borderWidth: 2,
+    borderRadius: 20,
+    margin: 5,
+  },
 
 
 
@@ -234,11 +288,59 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   title: {
-    color: '#FFFFFF', 
+    color: '#000000', 
     fontSize: 40,
  
   },
   license: {
     
+  },
+
+
+
+
+
+  //Login Screen styles
+  loginBox: {
+    alignItems: 'center',
+    margin: 30,
+  },
+  loginAlts: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: 200,
+    marginVertical: 10,
+  },
+  loginIcons: {
+    height: 40,
+    width: 40,
+  },
+  loginButtons: {
+    flex: 1,
+    flexDirection: 'row',
+    marginBottom: 40,
+  },
+
+  loginButtonText: {
+    color: '#000',
+    fontSize: 24,
+    textAlign: 'center'
+  },
+  loginTitle: {
+    fontSize: 40,
+    marginBottom: 40,
+  }, 
+  buttonAlts: {
+    height: 40,
+    width: 40,
+  },
+  buttonLogin: {
+    height: 40,
+    width: 80,
+    backgroundColor: 'purple',
+    textAlign: 'center',
+    borderWidth: 2,
+    borderRadius: 10,
   },
 });
