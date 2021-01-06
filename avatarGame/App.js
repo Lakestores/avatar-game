@@ -2,7 +2,7 @@
 import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
-import { TextInput, Image, StyleSheet, Text, TouchableOpacity, View, Button } from 'react-native';
+import { TextInput, Image, StyleSheet, Text, TouchableOpacity, View, Button, Alert } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import AppLoading from 'expo-app-loading';
@@ -17,6 +17,7 @@ import discordlogin from './assets/imgs/discord-icon.webp';
 import { useFonts } from 'expo-font';
 
 import { setCustomText } from 'react-native-global-props';
+import { State } from 'react-native-gesture-handler';
 const customTextProps = { 
   style: { 
     //fontFamily: 'Avatar',
@@ -85,7 +86,19 @@ function ProfileScreen() {
   );
 }
 
+
+
+
+
+
+function doLogin({}){
+  
+}
+
+
 function LoginScreen({ navigation }) {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   return (
     <View style={styles.loginBox}>
@@ -94,17 +107,20 @@ function LoginScreen({ navigation }) {
         style={styles.inputBox}
         placeholder="Username"
         textContentType='username'
+        onChangeText={(username) => setUsername(username)}
+      
       />
       <TextInput
         style={styles.inputBox}
         placeholder="Password"
         textContentType='password'
         secureTextEntry={true}
+        onChangeText={(password) => setPassword(password)}
       />
       
       <View style={styles.loginButtons}>
         <TouchableOpacity
-          onPress={() => navigation.navigate('ProfileScreen')}
+          onPress={() => navigation.navigate('ProfileScreen')} //future me has to fix this
           style={styles.buttonLogin}>
           <Text style={styles.loginButtonText}>Login</Text>
         </TouchableOpacity>
@@ -147,26 +163,21 @@ function RegisterScreen() {
 
 
 
-
-
-
-
-
-
-
 //App and menu
 export default function App() {
+  
 
+  //Fonts
   let [fontsLoaded] = useFonts({
     //'Avatar': require('./assets/fonts/avatar.ttf'),
   });
-
   if (!fontsLoaded) {
     return <AppLoading />;
   } 
-
-
   else {
+
+
+    
     return (
       <NavigationContainer>
         <Stack.Navigator>
