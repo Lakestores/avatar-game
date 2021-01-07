@@ -1,6 +1,7 @@
+//system imports
 import React, { useContext, useEffect } from 'react';
 import { TextInput, Image, StyleSheet, Text, TouchableOpacity, View, Button, Alert } from 'react-native';
-import { State } from 'react-native-gesture-handler';
+import 'react-native-gesture-handler';
 
 import GlobalState from './contexts/GlobalState';
 
