@@ -1,13 +1,16 @@
 //import system
 import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { TextInput, Image, StyleSheet, Text, TouchableOpacity, View, Button, Alert } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import AppLoading from 'expo-app-loading';
 
 const Stack = createStackNavigator();
+//import other files
+import GlobalState from './contexts/GlobalState'; 
+import ProfileScreen from './Profile'; 
 //import assets
 import logo from './assets/imgs/logo.gif'; 
 import googlelogin from './assets/imgs/google-icon.png';
@@ -17,7 +20,6 @@ import discordlogin from './assets/imgs/discord-icon.webp';
 import { useFonts } from 'expo-font';
 
 import { setCustomText } from 'react-native-global-props';
-import { State } from 'react-native-gesture-handler';
 const customTextProps = { 
   style: { 
     //fontFamily: 'Avatar',
@@ -77,28 +79,13 @@ function HomeScreen({ navigation }) {
   );
 }
 
-//Profile Screen
-function ProfileScreen() {
-  return (
-    <View>
-      <Text>Profile Screen</Text>
-    </View>
-  );
-}
 
 
-
-
-
-
-function doLogin({}){
-  
-}
 
 
 function LoginScreen({ navigation }) {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [state, setState] = useContext(GlobalState);
+
 
   return (
     <View style={styles.loginBox}>
@@ -107,7 +94,8 @@ function LoginScreen({ navigation }) {
         style={styles.inputBox}
         placeholder="Username"
         textContentType='username'
-        onChangeText={(username) => setUsername(username)}
+        //onChangeText={(username) => setUsername(username)}
+        onChangeText={(text) => setState(state => ({...state, username: text}))}
       
       />
       <TextInput
@@ -115,12 +103,13 @@ function LoginScreen({ navigation }) {
         placeholder="Password"
         textContentType='password'
         secureTextEntry={true}
-        onChangeText={(password) => setPassword(password)}
+        onChangeText={(text) => setState(state => ({...state, password: text}))}
       />
       
       <View style={styles.loginButtons}>
         <TouchableOpacity
           onPress={() => navigation.navigate('ProfileScreen')} //future me has to fix this
+          
           style={styles.buttonLogin}>
           <Text style={styles.loginButtonText}>Login</Text>
         </TouchableOpacity>
@@ -132,19 +121,19 @@ function LoginScreen({ navigation }) {
       */}
       <View style={styles.loginAlts}> 
         <TouchableOpacity 
-          onPress={() => navigation.navigate('ProfileScreen')}
+          onPress={() => (setState(state => ({...state, username: "Google"})),navigation.navigate('ProfileScreen'))}
           style={styles.buttonAlts}>
           <Image source={googlelogin} style={styles.loginIcons} />
         </TouchableOpacity>
         
         <TouchableOpacity 
-          onPress={() => navigation.navigate('ProfileScreen')}
+          onPress={() => (setState(state => ({...state, username: "Facebook"})),navigation.navigate('ProfileScreen'))}
           style={styles.buttonAlts}>
           <Image source={facebooklogin} style={styles.loginIcons} />
         </TouchableOpacity>
 
         <TouchableOpacity 
-          onPress={() => navigation.navigate('ProfileScreen')}
+          onPress={() => (setState(state => ({...state, username: "Discord"})),navigation.navigate('ProfileScreen'))}
           style={styles.buttonAlts}>
           <Image source={discordlogin} style={styles.loginIcons} />
         </TouchableOpacity>
@@ -166,6 +155,8 @@ function RegisterScreen() {
 //App and menu
 export default function App() {
   
+  const [state, setState] = useState({}); 
+
 
   //Fonts
   let [fontsLoaded] = useFonts({
@@ -179,6 +170,7 @@ export default function App() {
 
     
     return (
+      <GlobalState.Provider value={[state, setState]}>
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
@@ -206,6 +198,7 @@ export default function App() {
         </Stack.Navigator>
         
       </NavigationContainer>
+      </GlobalState.Provider>
     );
   }
 }
