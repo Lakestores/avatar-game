@@ -13,7 +13,8 @@ import GlobalState from './contexts/GlobalState';
 import ProfileScreen from './Profile'; 
 import RegisterScreen from './Register'; 
 import LoginScreen from './Login';
-
+import settingsScreen from './Settings';
+import MapScreen from './Map';
 //import assets
 import logo from './assets/imgs/logo.gif'; 
 
@@ -118,6 +119,18 @@ export default function App() {
               name="RegisterScreen"
               component={RegisterScreen}
               options={{ title: 'Register' }}
+            />
+
+            <Stack.Screen
+              name="settingsScreen"
+              component={settingsScreen}
+              options={{ title: 'Settings' }}
+            />
+
+            <Stack.Screen
+              name="MapScreen"
+              component={MapScreen}
+              options={{ title: 'Map' }}
             />
           </Stack.Navigator>
           

@@ -2,12 +2,15 @@
 import React, { useContext, useEffect } from 'react';
 import { TextInput, Image, StyleSheet, Text, TouchableOpacity, View, Button, Alert } from 'react-native';
 import 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
+
 
 import GlobalState from './contexts/GlobalState';
-
+import settingsScreen from './Settings';
 
 function MenuBar({}) {
     const [state, setState] = useContext(GlobalState);
+    const navigation = useNavigation();
     const menustyle = StyleSheet.create({
         button: {
             height: 70,
@@ -42,15 +45,19 @@ function MenuBar({}) {
     return (
         <View style={menustyle.boxxy}>
             
-            <TouchableOpacity style={menustyle.button}>
+            <TouchableOpacity style={menustyle.button}
+                onPress={() => navigation.navigate('MapScreen')}>
                 <Text style={menustyle.textys}>Map</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={menustyle.button}>
                 <Text style={menustyle.textys}>No idea</Text>
             </TouchableOpacity>
-
-            <TouchableOpacity style={menustyle.button}>
+            
+            <TouchableOpacity
+                onPress={() => navigation.navigate('settingsScreen')} //future me has to fix this
+                    
+                style={menustyle.button}>
                 <Text style={menustyle.textys}>Settings</Text>
             </TouchableOpacity>
         </View>

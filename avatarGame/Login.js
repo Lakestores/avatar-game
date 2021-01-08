@@ -46,19 +46,19 @@ function LoginScreen({ navigation }) {
             */}
             <View style={styles.loginAlts}> 
                 <TouchableOpacity 
-                    onPress={() => (setState(state => ({...state, username: "Google"})),navigation.navigate('ProfileScreen'))}
+                    onPress={() => (setState(state => ({...state, username: "Google"})),navigation.reset({index: 0,routes: [{ name: 'ProfileScreen' }]}))}
                     style={styles.buttonAlts}>
                     <Image source={googlelogin} style={styles.loginIcons} />
                 </TouchableOpacity>
                 
                 <TouchableOpacity 
-                    onPress={() => (setState(state => ({...state, username: "Facebook"})),navigation.navigate('ProfileScreen'))}
+                    onPress={() => (setState(state => ({...state, username: "Facebook"})),navigation.reset({index: 0,routes: [{ name: 'ProfileScreen' }]}))}
                     style={styles.buttonAlts}>
                     <Image source={facebooklogin} style={styles.loginIcons} />
                 </TouchableOpacity>
         
                 <TouchableOpacity 
-                    onPress={() => (setState(state => ({...state, username: "Discord"})),navigation.navigate('ProfileScreen'))}
+                    onPress={() => (setState(state => ({...state, username: "Discord"})),navigation.reset({index: 0,routes: [{ name: 'ProfileScreen' }]}))}
                     style={styles.buttonAlts}>
                     <Image source={discordlogin} style={styles.loginIcons} />
                 </TouchableOpacity>

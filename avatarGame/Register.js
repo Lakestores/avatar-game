@@ -35,7 +35,7 @@ function RegisterScreen({navigation}) {
                 />
                 <View style={styles.loginButtons}>
                     <TouchableOpacity
-                    onPress={() => navigation.navigate('ProfileScreen')} //future me has to fix this
+                    onPress={() => navigation.reset({index: 0,routes: [{ name: 'ProfileScreen' }]})} //future me has to fix this
                     
                     style={styles.buttonLogin}>
                     <Text style={styles.loginButtonText}>Register</Text>
